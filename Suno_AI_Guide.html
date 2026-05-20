@@ -63,6 +63,29 @@ tr:nth-child(even) td{background:color-mix(in oklch,var(--bg) 50%,transparent)}
 .slide-number{position:absolute;right:34px;bottom:22px;font-size:14px;color:var(--muted);font-weight:800;letter-spacing:.06em}.controls{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:40;display:flex;gap:8px;background:rgba(255,255,255,.82);padding:8px 11px;border:1px solid var(--border);border-radius:999px;backdrop-filter:blur(10px);box-shadow:0 8px 24px rgba(95,72,39,.08)}.controls button{border:1px solid var(--border);background:var(--surface);color:var(--fg);border-radius:999px;padding:8px 13px;font-weight:900;cursor:pointer}.controls button:hover,.controls button:focus-visible{background:var(--accent-soft);border-color:color-mix(in oklch,var(--accent) 28%,var(--border));color:var(--fg);outline:0}.counter{color:var(--fg);font-weight:850;padding:8px 11px;min-width:88px;text-align:center}
 @media(max-width:900px){.topnav-inner{grid-template-columns:1fr auto}.nav-links{display:none}.nav-cta{display:none}.deck{padding-top:58px}.slide{width:100vw;height:calc(100vh - 58px);padding:44px 34px 64px;overflow:auto;border-radius:0}.title-slide h1{font-size:58px}.toc-list{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}.workflow{grid-template-columns:1fr 1fr}table{font-size:16px}.small{font-size:15px}.preset{font-size:12px}}
 @media print{body{overflow:visible;background:white}.topnav,.controls{display:none}.deck{display:block;width:auto;height:auto;padding:0}.slide,.slide.active{display:block;box-shadow:none;page-break-after:always;break-after:page;margin:0;border-radius:0}@page{size:1280px 720px;margin:0}}
+.home-link {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .72);
+  color: var(--fg);
+  font-size: 13px;
+  font-weight: 850;
+  text-decoration: none;
+  letter-spacing: -.02em;
+}
+
+.home-link:hover,
+.home-link:focus-visible {
+  background: var(--accent-soft);
+  border-color: color-mix(in oklch, var(--accent) 28%, var(--border));
+  outline: 0;
+}
 </style></head><body><header aria-label="슬라이드 네비게이션" class="topnav">
 <div class="topnav-inner">
 <button class="logo" data-goto="1" type="button">Suno AI 가이드</button>
@@ -75,7 +98,7 @@ tr:nth-child(even) td{background:color-mix(in oklch,var(--bg) 50%,transparent)}
 <button data-goto="39" type="button">수정</button>
 <button data-goto="43" type="button">주의</button>
 </nav>
-<div aria-hidden="true" class="nav-cta">공유용 파일</div>
+<a class="home-link" href="./index.html">홈으로</a>
 </div>
 </header><main class="deck"><section class="slide title-slide" data-index="1"><div class="eyebrow">Suno AI Guide</div><h1>Suno AI 가이드</h1><div class="hero-sub">공유용 실전 가이드</div><div class="hero-note">프롬프트 입력 구조 · 메타태그 · 스타일 설계 · 가사 품질관리 · 사용 주의</div><div class="slide-number">1 / 43</div></section>
 <section class="slide toc-slide" data-index="2"><div class="eyebrow">Contents</div><h1>목차</h1><ol class="toc-list"><li><span>01</span>프롬프트 입력 구조: Style / Lyrics 분리</li><li><span>02</span>고급 포맷팅 기호: [ ], ( ), * *, 대문자</li><li><span>03</span>말하듯이 부르는 태그: [Spoken word], [Narration]</li><li><span>04</span>엔딩 태그: [Fade out], [End], [Instrumental Fade out]</li><li><span>05</span>효과음/현장감 태그</li><li><span>06</span>보컬 지시 공식</li><li><span>07</span>AI 가사 클리셰 방지 체크리스트</li><li><span>08</span>실패 시 수정 워크플로우</li><li><span>09</span>모델 버전 차이 주의</li><li><span>10</span>저작권·업로드·상업 사용 주의</li></ol><div class="slide-number">2 / 43</div></section>
