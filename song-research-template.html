@@ -204,10 +204,47 @@
                 font-size: 14px;
             }
         }
+        .home-link {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 50;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            padding: 0 15px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.86);
+            color: var(--fg);
+            font-size: 14px;
+            font-weight: 850;
+            text-decoration: none;
+            box-shadow: 0 10px 26px var(--shadow);
+            }
+
+            .home-link:hover,
+            .home-link:focus-visible {
+            background: var(--surface-2);
+            border-color: var(--accent);
+            outline: 0;
+            }
+
+            @media (max-width: 720px) {
+            .home-link {
+                top: 12px;
+                right: 12px;
+                min-height: 34px;
+                padding: 0 12px;
+                font-size: 13px;
+            }
+            }        
     </style>
 </head>
 
 <body>
+  <a class="home-link" href="./index.html">홈으로</a>
     <main class="container">
         <header class="header">
             <div class="eyebrow">Suno Ai Research Prompt</div>
