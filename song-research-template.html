@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>음악 리서치 프롬프트 생성기</title>
+    <style>
+        :root {
+            --bg: #faf7f0;
+            --surface: #ffffff;
+            --surface-2: #fffaf2;
+            --fg: #3f3428;
+            --muted: #74685d;
+            --border: #e1d7c8;
+            --accent: #b9823f;
+            --accent-dark: #7b4f1f;
+            --shadow: rgba(95, 72, 39, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 56px 20px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+            background: linear-gradient(180deg, var(--bg), #f4eadc);
+            color: var(--fg);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            color: var(--accent-dark);
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            font-size: 38px;
+            line-height: 1.2;
+            letter-spacing: -0.04em;
+        }
+
+        .description {
+            margin: 0;
+            color: var(--muted);
+            font-size: 18px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 26px;
+            box-shadow: 0 16px 40px var(--shadow);
+            margin-bottom: 22px;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--fg);
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 16px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            font-size: 17px;
+            color: var(--fg);
+            background: var(--surface-2);
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(185, 130, 63, 0.16);
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        button {
+            border: 0;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-size: 15px;
+            font-weight: 850;
+            cursor: pointer;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+        }
+
+        .primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .secondary {
+            background: #efe4d4;
+            color: var(--fg);
+        }
+
+        .output-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .output-title h2 {
+            margin: 0;
+            font-size: 22px;
+            letter-spacing: -0.03em;
+        }
+
+        .status {
+            color: var(--accent-dark);
+            font-size: 14px;
+            font-weight: 800;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .status.show {
+            opacity: 1;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 720px;
+            resize: vertical;
+            padding: 22px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: #fffdf8;
+            color: var(--fg);
+            font-family: "D2Coding", "Cascadia Mono", Consolas, "Noto Sans KR", monospace;
+            font-size: 15px;
+            line-height: 1.62;
+            white-space: pre-wrap;
+            outline: none;
+        }
+
+        footer {
+            margin-top: 30px;
+            color: #998b7d;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 720px) {
+            body {
+                padding: 34px 14px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .panel {
+                padding: 20px;
+            }
+
+            textarea {
+                min-height: 620px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <header class="header">
+            <div class="eyebrow">Suno Ai Research Prompt</div>
+            <h1>음악 리서치 프롬프트 생성기</h1>
+            <p class="description">
+                가수명과 노래 제목을 입력하면, 곡 분석용 리서치 프롬프트를 바로 생성하고 복사할 수 있습니다.
+            </p>
+        </header>
+
+        <section class="panel">
+            <div class="input-grid">
+                <div>
+                    <label for="artist">가수명</label>
+                    <input id="artist" type="text" placeholder="예: 장윤정" />
+                </div>
+
+                <div>
+                    <label for="songTitle">노래 제목</label>
+                    <input id="songTitle" type="text" placeholder="예: 사랑아" />
+                </div>
+            </div>
+
+            <div class="button-row">
+                <button class="primary" type="button" onclick="copyPrompt()">프롬프트 복사하기</button>
+                <button class="secondary" type="button" onclick="resetFields()">입력 초기화</button>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="output-title">
+                <h2>생성된 프롬프트</h2>
+                <div id="status" class="status">복사되었습니다.</div>
+            </div>
+
+            <textarea id="output" readonly></textarea>
+        </section>
+
+        <footer>
+            © 툭히의 Suno Ai 자료실
+        </footer>
+    </main>
+
+    <script>
+        const artistInput = document.getElementById("artist");
+        const songTitleInput = document.getElementById("songTitle");
+        const output = document.getElementById("output");
+        const status = document.getElementById("status");
+
+        function getValueOrPlaceholder(value, placeholder) {
+            const trimmed = value.trim();
+            return trimmed.length > 0 ? trimmed : placeholder;
+        }
+
+        function generatePrompt() {
+            const artist = getValueOrPlaceholder(artistInput.value, "[가수명]");
+            const songTitle = getValueOrPlaceholder(songTitleInput.value, "[노래 제목]");
+
+            const prompt = `**${artist}**의 **${songTitle}**라는 곡에 대해서 곡의 장르, 리듬, 악기, 편곡, 보컬, 믹싱 정보를 정리하고 싶어.
+
+다음 항목을 중심으로 조사해줘.
+
+## 1. 장르와 하위 스타일
+
+- 이 곡은 어떤 장르인가?
+- 전통 장르인지, 현대적으로 결합된 장르인지 설명해줘.
+- 비슷한 장르명이나 영어로 표현할 수 있는 장르명을 제안해줘.
+- 장르적 특징을 간단히 정리해줘.
+
+## 2. 템포와 리듬
+
+- BPM은 어느 정도인가?
+- 빠른 곡인지, 중간 템포인지, 느린 곡인지 설명해줘.
+- four-on-the-floor, swing, shuffle, jive, disco, funk, ballad 등 어떤 리듬 패턴에 가까운지 분석해줘.
+- 드럼에서 킥, 스네어, 하이햇, 클랩, 탬버린 중 무엇이 두드러지는지 정리해줘.
+- 리듬이 주는 느낌을 설명해줘. 예: 경쾌함, 긴박함, 편안함, 춤추기 쉬움, 웅장함 등.
+
+## 3. 주요 악기와 사운드
+
+- 곡에서 핵심적으로 들리는 악기를 정리해줘.
+- 드럼, 베이스, 기타, 피아노, 신시사이저, 브라스, 스트링, 하모니카, 퍼커션 등이 어떻게 쓰이는지 설명해줘.
+- 각 악기의 연주 방식이나 사운드 질감도 함께 정리해줘.
+	- 예: syncopated guitar
+	- soft synth plucks
+	- brass stabs
+	- warm piano chords
+	- driving bass
+	- punchy drums
+
+## 4. 곡 구조별 편곡 변화
+
+곡의 구조를 가능한 범위에서 나누어 설명해줘.
+
+- Intro
+- Verse
+- Pre-Chorus
+- Chorus
+- Bridge
+- Outro
+
+각 구간에서 다음을 정리해줘.
+
+- 어떤 악기가 중심이 되는가?
+- 편곡이 가벼운가, 풍성한가?
+- 에너지가 올라가는가, 쉬어가는가?
+- 보컬과 백보컬이 어떻게 달라지는가?
+- 다음 구간으로 넘어갈 때 어떤 변화가 있는가?
+
+## 5. 후렴의 특징
+
+- 후렴이 따라 부르기 쉬운 구조인지 분석해줘.
+- 반복되는 가사나 멜로디 훅이 있는지 정리해줘.
+- 후렴에서 악기 편성이 어떻게 커지는지 설명해줘.
+- 백보컬, 더블링, 화음, 코러스가 사용되는지 분석해줘.
+- 후렴이 주는 감정적 효과를 설명해줘.
+
+## 6. 전환 효과와 장식 사운드
+
+- 구간 전환에 사용되는 효과음을 찾아줘.
+- 후렴 직전이나 브릿지, 간주에 어떤 장식음이 들어가는지 분석해줘.
+- 다음과 같은 요소가 있는지 확인해줘.
+	- reversed cymbal swell
+	- drum fill
+	- riser
+	- crash cymbal
+	- bell chime
+	- synth fill
+	- brass hit
+	- guitar lick
+	- harmonica fill
+
+## 7. 보컬 스타일
+
+- 보컬은 힘 있는지, 부드러운지, 밝은지, 애절한지 설명해줘.
+- 발음, 호흡, 고음 처리, 감정 표현 방식이 어떤지 분석해줘.
+- 트로트 창법, 팝 창법, 발라드 창법, 록 보컬 등 어떤 스타일에 가까운지 설명해줘.
+- 리드 보컬과 백보컬의 관계를 정리해줘.
+- 더블링, 합창, 화음이 사용되는지 분석해줘.
+
+## 8. 믹싱과 전체 사운드 질감
+
+- 전체 믹스가 어떤 느낌인지 설명해줘.
+	- clean
+	- glossy
+	- warm
+	- vintage
+	- spacious
+	- punchy
+	- bright
+	- dark
+	- intimate
+	- cinematic
+- 보컬이 앞에 있는지, 악기와 섞여 있는지 설명해줘.
+- 드럼과 베이스가 강하게 들리는지, 부드럽게 깔리는지 분석해줘.
+- 공간감, 리버브, 딜레이, 코러스 효과가 두드러지는지 정리해줘.
+
+## 9. 감정선과 분위기
+
+- 곡 전체의 감정은 어떤 방향인가?
+- 밝은 곡인지, 애절한 곡인지, 신나는 곡인지, 위로하는 곡인지 설명해줘.
+- Verse에서 Chorus로 갈수록 감정이 어떻게 변화하는지 정리해줘.
+- 마지막 후렴이나 클라이맥스에서 감정이 어떻게 확장되는지 분석해줘.
+
+## 10. 리서치 결과 요약
+
+마지막에는 위 내용을 바탕으로 다음 형식으로 정리해줘.
+
+### 핵심 장르
+-
+
+### 템포 / 리듬
+-
+
+### 주요 악기
+-
+
+### 곡 구조
+-
+
+### 후렴 특징
+-
+
+### 전환 효과
+-
+
+### 보컬 스타일
+-
+
+### 믹싱 질감
+-
+
+### 전체 분위기
+-
+
+### 나중에 영어 음악 프롬프트로 변환할 때 꼭 반영해야 할 핵심 요소
+-`;
+
+            output.value = prompt;
+        }
+
+        async function copyPrompt() {
+            generatePrompt();
+
+            try {
+                await navigator.clipboard.writeText(output.value);
+                showStatus();
+            } catch (error) {
+                output.select();
+                document.execCommand("copy");
+                showStatus();
+            }
+        }
+
+        function showStatus() {
+            status.classList.add("show");
+
+            setTimeout(() => {
+                status.classList.remove("show");
+            }, 1600);
+        }
+
+        function resetFields() {
+            artistInput.value = "";
+            songTitleInput.value = "";
+            generatePrompt();
+            artistInput.focus();
+        }
+
+        artistInput.addEventListener("input", generatePrompt);
+        songTitleInput.addEventListener("input", generatePrompt);
+
+        generatePrompt();
+    </script>
+</body>
+
+</html>
