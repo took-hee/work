@@ -640,6 +640,30 @@
       outline: 0
     }
 
+    .home-link {
+      justify-self: end;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .72);
+      color: var(--fg);
+      font-size: 13px;
+      font-weight: 850;
+      text-decoration: none;
+      letter-spacing: -.02em;
+    }
+
+    .home-link:hover,
+    .home-link:focus-visible {
+      background: var(--accent-soft);
+      border-color: color-mix(in oklch, var(--accent) 28%, var(--border));
+      outline: 0;
+    }
+    
     .counter {
       color: var(--fg);
       font-weight: 850;
@@ -763,7 +787,7 @@
           type="button">신기능</button><button data-goto="13" type="button">제작흐름</button><button data-goto="19"
           type="button">이상할 때</button><button data-goto="21" type="button">GPTs</button><button data-goto="33"
           type="button">마무리</button></nav>
-      <div class="nav-hint">← → / F Fullscreen</div>
+      <a class="home-link" href="./index.html">홈으로</a>
     </div>
   </header>
   <main aria-live="polite" class="deck">
